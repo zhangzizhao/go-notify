@@ -1,15 +1,18 @@
-# go-notify
+#go-notify
 code in golang
 notify service:   notify msg through mail/sms/hipchat   (hipchat not done)
 mail: qq corp mailserver
 sms: self thrift protocol
 hipchat: todo
 
+#web 框架： gin
+
 build project : make build
 fmt:  make fmt
 init: make dep
 
 
+#param
 can notify by post reuqest, example for body param:
 
 {
@@ -28,6 +31,6 @@ recieve: mail/hipchat recieve
 phonelist: phone list for sms
 
 
-todo:
+#todo:
 1. a server to turn name to phone, to don't neet to give phonelist
 2. clear code, 优雅
