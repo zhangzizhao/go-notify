@@ -7,19 +7,19 @@ import (
 
 func main() {
 	router := gin.Default()
-	router.GET("/", roomGET)
-	router.POST("/", roomPOST)
+	router.GET("/", notifyGET)
+	router.POST("/", notifyPOST)
 	router.Run(":8080")
 }
 
-func roomGET(c *gin.Context) {
+func notifyGET(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"status":  "success",
 		"message": "post param body e.g :{'mail':true, 'sms':true, 'subject':'test','content':'test','recieve':'recieve'}",
 	})
 }
 
-func roomPOST(c *gin.Context) {
+func notifyPOST(c *gin.Context) {
 	var param NotifyType
 	if err := c.ParseBody(&param); err != nil {
 		fmt.Println(err.Error())
