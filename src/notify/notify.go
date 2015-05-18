@@ -7,13 +7,15 @@ import (
 
 	"notify/lib"
 	"notify/mail"
+	"notify/sms"
 )
 
 type NotifyType struct {
-	Channel string `json:"channel"`
-	Subject string `json:"subject"`
-	Content string `json:"content"`
-	Recieve string `json:"receive"`
+	Channel   string  `json:"channel"`
+	Subject   string  `json:"subject"`
+	Content   string  `json:"content"`
+	Recieve   string  `json:"receive"`
+	PhoneList []int64 `json:"phonelist"`
 }
 
 func (c *NotifyType) CheckParam() (int64, string) {
@@ -41,7 +43,7 @@ func (c *NotifyType) SendMail(notify lib.NotifyContent) error {
 
 func (c *NotifyType) SendSms(notify lib.NotifyContent) error {
 	fmt.Println("sand sms:", notify)
-	return nil
+	return sms.Send(notify)
 }
 
 func DoNotify(notify NotifyType) error {
@@ -49,6 +51,7 @@ func DoNotify(notify NotifyType) error {
 	notifyContent.Subject = notify.Subject
 	notifyContent.Content = notify.Content
 	notifyContent.Recieve = notify.Recieve
+	notifyContent.PhoneList = notify.PhoneList
 
 	channelList := strings.Split(notify.Channel, ";")
 	sort.Strings(channelList)
