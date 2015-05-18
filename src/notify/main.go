@@ -26,7 +26,7 @@ func roomPOST(c *gin.Context) {
 	} else {
 		status, message := param.CheckParam()
 		if status != 200 {
-			c.JSON(404, gin.H{
+			c.JSON(int(status), gin.H{
 				"status":  "fail",
 				"message": message,
 			})
