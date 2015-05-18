@@ -15,8 +15,8 @@ func Send(notify lib.NotifyContent) error {
 	message.Phones = notify.PhoneList
 	message.Message = notify.Content
 	message.JobId = 0
-	//        fmt.Println(innerSend("10.10.10.87:9090",message))
-	fmt.Println(innerSend("10.231.144.37:9090", message))
+	//        fmt.Println(innerSend("xx.xx.xx.xx:xxxx",message))
+	fmt.Println(innerSend("xx.xx.xx.xx:xxxx", message))
 	return nil
 }
 
