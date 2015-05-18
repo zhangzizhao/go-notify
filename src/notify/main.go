@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-
 	router := gin.Default()
 	router.GET("/", roomGET)
 	router.POST("/", roomPOST)
