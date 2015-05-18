@@ -9,5 +9,5 @@ fmt:
 dep:fmt
 	go get github.com/gin-gonic/gin
 
-run:
-	cd src/notify && $(CURDIR)/bin/bee run --gendoc=true --downdoc=true
+build:
+	cd src/notify && go build

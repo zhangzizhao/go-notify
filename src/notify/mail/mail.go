@@ -6,22 +6,18 @@ import (
 	"log"
 	"net"
 	"net/smtp"
-    "test/gin/lib"
+
+	"notify/lib"
 )
 
 // reieve：  只填写统一账户用户名，;分割，自动加@后缀
 func Send(notify lib.NotifyContent) {
-    host := "smtp.qq.com"
-    port := 465
-    email := "tech-alarm@diditaxi.com.cn"
-    password := "7tSwNpb3VrqQ"
-
 	toEmail := fmt.Sprintf("%s@diditaxi.com.cn", notify.Recieve)
-    subject := notify.Subject
-    content := notify.Content
+	subject := notify.Subject
+	content := notify.Content
 
 	header := make(map[string]string)
-	header["From"] = "from odin" + "<" + email + ">"
+	header["From"] = "from odin" + "<" + lib.Email + ">"
 	header["To"] = toEmail
 	header["Subject"] = subject
 	header["Content-Type"] = "text/html; charset=UTF-8"
@@ -36,15 +32,15 @@ func Send(notify lib.NotifyContent) {
 
 	auth := smtp.PlainAuth(
 		"",
-		email,
-		password,
-		host,
+		lib.Email,
+		lib.Password,
+		lib.Host,
 	)
 
 	err := SendMailUsingTLS(
-		fmt.Sprintf("%s:%d", host, port),
+		fmt.Sprintf("%s:%d", lib.Host, lib.Port),
 		auth,
-		email,
+		lib.Email,
 		[]string{toEmail},
 		[]byte(message),
 	)
