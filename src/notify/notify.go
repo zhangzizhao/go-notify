@@ -16,13 +16,21 @@ type NotifyType struct {
 	Recieve string `json:"receive"`
 }
 
-func (c *NotifyType) SendMail(notify lib.NotifyContent) {
+func (c *NotifyType) SendMail(notify lib.NotifyContent) error {
 	fmt.Println("sand mail:", notify)
-	mail.Send(notify)
+	return mail.Send(notify)
 }
 
-func (c *NotifyType) SendSms(notify lib.NotifyContent) {
+func (c *NotifyType) CheckParam() (int64, string) {
+	if c.Recieve == "" || c.Channel == "" {
+		return 404, "channel or recieve empty"
+	}
+	return 200, ""
+}
+
+func (c *NotifyType) SendSms(notify lib.NotifyContent) error {
 	fmt.Println("sand sms:", notify)
+	return nil
 }
 
 func RemoveDuplicatesAndEmpty(a []string) (ret []string) {
@@ -47,9 +55,13 @@ func DoNotify(notify NotifyType) error {
 	for _, channel := range notifyChannel {
 		switch channel {
 		case "mail":
-			notify.SendMail(notifyContent)
+			if err := notify.SendMail(notifyContent); err != nil {
+				return err
+			}
 		case "sms":
-			notify.SendSms(notifyContent)
+			if err := notify.SendSms(notifyContent); err != nil {
+				return err
+			}
 		case "hipchat":
 			fmt.Println("notify hipchat...  skip")
 		default:

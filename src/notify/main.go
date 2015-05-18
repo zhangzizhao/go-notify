@@ -24,7 +24,21 @@ func roomPOST(c *gin.Context) {
 	if err := c.ParseBody(&param); err != nil {
 		fmt.Println(err.Error())
 	} else {
-		DoNotify(param)
+		status, message := param.CheckParam()
+		if status != 200 {
+			c.JSON(404, gin.H{
+				"status":  "fail",
+				"message": message,
+			})
+		}
+
+		if err := DoNotify(param); err != nil {
+			c.JSON(500, gin.H{
+				"status":  "error happen",
+				"message": err.Error(),
+			})
+
+		}
 	}
 	c.JSON(200, gin.H{
 		"status":  "success",
