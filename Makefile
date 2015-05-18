@@ -8,6 +8,7 @@ fmt:
 
 dep:fmt
 	go get github.com/gin-gonic/gin
+	go get git.apache.org/thrift.git/lib/go/thrift
 
 build:
 	cd src/notify && go build

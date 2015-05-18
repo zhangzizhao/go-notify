@@ -16,21 +16,11 @@ type NotifyType struct {
 	Recieve string `json:"receive"`
 }
 
-func (c *NotifyType) SendMail(notify lib.NotifyContent) error {
-	fmt.Println("sand mail:", notify)
-	return mail.Send(notify)
-}
-
 func (c *NotifyType) CheckParam() (int64, string) {
 	if c.Recieve == "" || c.Channel == "" {
 		return 404, "channel or recieve empty"
 	}
 	return 200, ""
-}
-
-func (c *NotifyType) SendSms(notify lib.NotifyContent) error {
-	fmt.Println("sand sms:", notify)
-	return nil
 }
 
 func RemoveDuplicatesAndEmpty(a []string) (ret []string) {
@@ -44,11 +34,22 @@ func RemoveDuplicatesAndEmpty(a []string) (ret []string) {
 	return
 }
 
+func (c *NotifyType) SendMail(notify lib.NotifyContent) error {
+	fmt.Println("sand mail:", notify)
+	return mail.Send(notify)
+}
+
+func (c *NotifyType) SendSms(notify lib.NotifyContent) error {
+	fmt.Println("sand sms:", notify)
+	return nil
+}
+
 func DoNotify(notify NotifyType) error {
 	var notifyContent lib.NotifyContent
 	notifyContent.Subject = notify.Subject
 	notifyContent.Content = notify.Content
 	notifyContent.Recieve = notify.Recieve
+
 	channelList := strings.Split(notify.Channel, ";")
 	sort.Strings(channelList)
 	notifyChannel := RemoveDuplicatesAndEmpty(channelList)
