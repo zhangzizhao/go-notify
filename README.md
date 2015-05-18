@@ -1,10 +1,10 @@
 ##go-notify
-code in golang
-notify service:   notify msg through mail/sms/hipchat   (hipchat not done)
-mail: qq corp mailserver
-sms: self thrift protocol
-hipchat: todo
-web 框架： gin
+- code in golang
+- notify service:   notify msg through mail/sms/hipchat   (hipchat not done)
+- mail: qq corp mailserver
+- sms: self thrift protocol
+- hipchat: todo
+- web 框架： gin
 
 ##my habit
 - build project : make build
