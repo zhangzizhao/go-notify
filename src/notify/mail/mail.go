@@ -6,19 +6,20 @@ import (
 	"log"
 	"net"
 	"net/smtp"
+	"strings"
 
 	"notify/lib"
 )
 
 // reieve：  只填写统一账户用户名，;分割，自动加@后缀
 func Send(notify lib.NotifyContent) {
-	toEmail := fmt.Sprintf("%s@diditaxi.com.cn", notify.Recieve)
+	toEmail := makeReciever(notify.Recieve)
 	subject := notify.Subject
 	content := notify.Content
 
 	header := make(map[string]string)
 	header["From"] = "from odin" + "<" + lib.Email + ">"
-	header["To"] = toEmail
+	header["To"] = strings.Join(toEmail, ";")
 	header["Subject"] = subject
 	header["Content-Type"] = "text/html; charset=UTF-8"
 
@@ -41,12 +42,23 @@ func Send(notify lib.NotifyContent) {
 		fmt.Sprintf("%s:%d", lib.Host, lib.Port),
 		auth,
 		lib.Email,
-		[]string{toEmail},
+		toEmail,
 		[]byte(message),
 	)
 	if err != nil {
 		panic(err)
 	}
+}
+
+func makeReciever(recievers string) (recieve []string) {
+	recieveList := strings.Split(recievers, ";")
+	if len(recieveList) == 0 {
+		return nil
+	}
+	for _, oneRecieve := range recieveList {
+		recieve = append(recieve, fmt.Sprintf("%s@diditaxi.com.cn", oneRecieve))
+	}
+	return recieve
 }
 
 //return a smtp client

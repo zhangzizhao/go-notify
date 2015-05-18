@@ -57,5 +57,5 @@ func DoNotify(notify NotifyType) error {
 		}
 
 	}
-    return nil
+	return nil
 }
