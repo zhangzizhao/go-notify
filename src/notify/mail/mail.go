@@ -57,7 +57,7 @@ func makeReciever(recievers string) (recieve []string) {
 		return nil
 	}
 	for _, oneRecieve := range recieveList {
-		recieve = append(recieve, fmt.Sprintf("%s@diditaxi.com.cn", oneRecieve))
+		recieve = append(recieve, fmt.Sprintf("%s@xxxx.com.cn", oneRecieve))
 	}
 	return recieve
 }
