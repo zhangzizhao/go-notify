@@ -11,15 +11,17 @@ init: make dep
 
 
 can notify by post reuqest, example for body param:
+
 {
-"channel":"mail;sms", 
-"subject":"notify 发送-标题",
-"content":"hello <br>gin 发送- content",
-"receive":"zhangzizhao;zhangzizhao02",
-"phonelist":[13521022145]
+  "channel": "mail;sms", 
+  "subject": "notify 发送-标题",
+  "content": "hello <br>gin 发送- content",
+  "receive": "zhangzizhao;zhangzizhao02",
+  "phonelist": [13521022145]
 }
 
 channel: notify channel, include mail/sms   and hipchat(todo)
+
 subject: mail subject
 content: mail/sms/hipchat msg
 recieve: mail/hipchat recieve
