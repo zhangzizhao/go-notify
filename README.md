@@ -6,13 +6,13 @@
 - hipchat: todo
 - web 框架： gin
 
-##my habit
+###my habit
 - build project : make build
 - fmt:  make fmt
 - init: make dep
 
 
-##param
+###param
 can notify by post reuqest, example for body param:
 
 {
@@ -29,6 +29,6 @@ can notify by post reuqest, example for body param:
 - phonelist: phone list for sms
 
 
-##todo:
+###todo:
 1. a server to turn name to phone, to don't neet to give phonelist
 2. clear code, 优雅
