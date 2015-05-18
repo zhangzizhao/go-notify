@@ -15,7 +15,7 @@ type NotifyType struct {
 	Subject   string  `json:"subject"`
 	Content   string  `json:"content"`
 	Recieve   string  `json:"receive"`
-	PhoneList []int64 `json:"phonelist"`
+	PhoneList []int64 `json:"phonelist"`  // ???  todo
 }
 
 func (c *NotifyType) CheckParam() (int64, string) {
@@ -51,7 +51,7 @@ func DoNotify(notify NotifyType) error {
 	notifyContent.Subject = notify.Subject
 	notifyContent.Content = notify.Content
 	notifyContent.Recieve = notify.Recieve
-	notifyContent.PhoneList = notify.PhoneList
+	notifyContent.PhoneList = notify.PhoneList  // ??? todo
 
 	channelList := strings.Split(notify.Channel, ";")
 	sort.Strings(channelList)
