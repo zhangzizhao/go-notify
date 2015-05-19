@@ -8,6 +8,7 @@ import (
 	"notify/lib"
 	"notify/mail"
 	"notify/sms"
+	"notify/hipchat"
 )
 
 type NotifyType struct {
@@ -46,6 +47,11 @@ func (c *NotifyType) SendSms(notify lib.NotifyContent) error {
 	return sms.Send(notify)
 }
 
+func (c *NotifyType) SendHipchat(notify lib.NotifyContent) error {
+	fmt.Println("sand hipchat:", notify)
+	return hipchat.Send(notify)
+}
+
 func DoNotify(notify NotifyType) error {
 	var notifyContent lib.NotifyContent
 	notifyContent.Subject = notify.Subject
@@ -67,7 +73,9 @@ func DoNotify(notify NotifyType) error {
 				return err
 			}
 		case "hipchat":
-			fmt.Println("notify hipchat...  skip")
+			if err := notify.SendHipchat(notifyContent); err != nil {
+				return err
+			}
 		default:
 			fmt.Println("unknown notify channel and skip:", channel)
 		}
