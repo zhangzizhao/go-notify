@@ -3,6 +3,6 @@ package lib
 type NotifyContent struct {
 	Subject   string
 	Content   string
-	Recieve   string
+	Recieves   []string
 	PhoneList []int64  // ???
 }

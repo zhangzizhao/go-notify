@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"sort"
-	"strings"
 
 	"notify/lib"
 	"notify/mail"
@@ -12,15 +11,15 @@ import (
 )
 
 type NotifyType struct {
-	Channel   string  `json:"channel"`
+	Channels   []string  `json:"channels"`// todo
 	Subject   string  `json:"subject"`
 	Content   string  `json:"content"`
-	Recieve   string  `json:"receive"`
-	PhoneList []int64 `json:"phonelist"`  // ???  todo
+	Recieves   []string  `json:"receives"`
+	PhoneList []int64 `json:"-"`
 }
 
 func (c *NotifyType) CheckParam() (int64, string) {
-	if c.Recieve == "" || c.Channel == "" {
+	if len(c.Recieves) == 0 || len(c.Channels) == 0 {
 		return 404, "channel or recieve empty"
 	}
 	return 200, ""
@@ -56,12 +55,11 @@ func DoNotify(notify NotifyType) error {
 	var notifyContent lib.NotifyContent
 	notifyContent.Subject = notify.Subject
 	notifyContent.Content = notify.Content
-	notifyContent.Recieve = notify.Recieve
+	notifyContent.Recieves = notify.Recieves
 	notifyContent.PhoneList = notify.PhoneList  // ??? todo
 
-	channelList := strings.Split(notify.Channel, ";")
-	sort.Strings(channelList)
-	notifyChannel := RemoveDuplicatesAndEmpty(channelList)
+	sort.Strings(notify.Channels)
+	notifyChannel := RemoveDuplicatesAndEmpty(notify.Channels)
 	for _, channel := range notifyChannel {
 		switch channel {
 		case "mail":

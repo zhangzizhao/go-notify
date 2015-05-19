@@ -9,7 +9,7 @@ import (
 )
 
 func Send(notify lib.NotifyContent) error {
-	usrList := strings.Split(notify.Recieve, ";")
+	usrList := notify.Recieves
 	for _, oneUser := range usrList {
 		if err := sendMsgToOneUser(notify.Content, oneUser); err != nil {
 			return err

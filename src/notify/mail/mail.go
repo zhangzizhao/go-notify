@@ -13,7 +13,7 @@ import (
 
 // reieve：  只填写统一账户用户名，;分割，自动加@后缀
 func Send(notify lib.NotifyContent) error {
-	toEmail := makeReciever(notify.Recieve)
+	toEmail := makeReciever(notify.Recieves)
 	subject := notify.Subject
 	content := notify.Content
 
@@ -51,8 +51,7 @@ func Send(notify lib.NotifyContent) error {
 	return nil
 }
 
-func makeReciever(recievers string) (recieve []string) {
-	recieveList := strings.Split(recievers, ";")
+func makeReciever(recieveList []string) (recieve []string) {
 	if len(recieveList) == 0 {
 		return nil
 	}
